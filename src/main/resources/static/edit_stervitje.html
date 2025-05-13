@@ -100,7 +100,7 @@
         }
 
         try {
-        const response = await fetch(`http://localhost:8080/api/stervitja/${id}`);
+        const response = await fetch(`https://ancient-oasis-62824-6c7097a4f2bf.herokuapp.com/api/stervitja/${id}`);
         const stervitja = await response.json();
 
         document.getElementById("data").value = stervitja.data.split("T")[0];
@@ -128,7 +128,7 @@
     };
 
     try {
-        const response = await fetch(`http://localhost:8080/api/stervitja/${id}`, {
+        const response = await fetch(`https://ancient-oasis-62824-6c7097a4f2bf.herokuapp.com/api/stervitja/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedData)

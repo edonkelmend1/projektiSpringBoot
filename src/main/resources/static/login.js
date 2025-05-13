@@ -18,7 +18,7 @@ form.addEventListener("submit", async function (e) {
 
     try {
 
-        const response = await fetch("http://localhost:8080/api/perdoruesit/login", {
+        const response = await fetch("https://ancient-oasis-62824-6c7097a4f2bf.herokuapp.com/api/perdoruesit/login", {
 
                 method: "POST",
                 headers: {

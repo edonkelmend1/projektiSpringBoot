@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
 
-        const response = await fetch(`http://localhost:8080/api/stervitja/perdoruesi/${user.id}`);
+        const response = await fetch(`https://ancient-oasis-62824-6c7097a4f2bf.herokuapp.com/api/stervitja/perdoruesi/${user.id}`);
         const data = await response.json();
         const stervitjaList = document.getElementById("stervitjet-list")
 
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     const stervitjaId = event.target.dataset.id;
 
                     try {
-                        const response = await fetch(`http://localhost:8080/api/stervitja/${stervitjaId}`, {
+                        const response = await fetch(`https://ancient-oasis-62824-6c7097a4f2bf.herokuapp.com/api/stervitja/${stervitjaId}`, {
                             method: 'DELETE',
 
 

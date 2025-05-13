@@ -1,4 +1,4 @@
-const API = "http://localhost:8080/api/perdoruesit";
+const API = "https://ancient-oasis-62824-6c7097a4f2bf.herokuapp.com/api/perdoruesit";
 
 function login(){
 

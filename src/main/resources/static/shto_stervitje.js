@@ -34,7 +34,7 @@ pulsi_para_stervitjes: pulsi_para_stervitjes
 };
 
 try{
-    const response = await fetch(`http://localhost:8080/api/stervitja/${user.id}`, {
+    const response = await fetch(`https://ancient-oasis-62824-6c7097a4f2bf.herokuapp.com/api/stervitja/${user.id}`, {
 
     method: "POST",
     headers: {

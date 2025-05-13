@@ -12,7 +12,7 @@ const password = document.getElementById("register-password").value;
 
 try {
 
-const response = await fetch("http://localhost:8080/api/perdoruesit/regjistro", {
+const response = await fetch("https://ancient-oasis-62824-6c7097a4f2bf.herokuapp.com/api/perdoruesit/regjistro", {
 
     method: "POST",
     headers: {
