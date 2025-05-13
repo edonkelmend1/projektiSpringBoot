@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Paneli</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">"
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Stervitje Tracker</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="paneli.html">Home <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="shto_stervitje.html">Shto te dhena</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">About Us</a>
+                    <a class="dropdown-item" href="#">Careers</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Contact Us</a>
+                </div>
+            </li>
+
+        </ul>
+        <form class="d-flex form-inline ms-auto my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success ms-auto my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<div class="container py-5">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h3 class="card-title text-center">Pershendetje, <span id="username-display" class="text-primary"></span></h3>
+            <label for="zgjedh_daten"></label>
+            <input type="date" id="zgjedh_daten">
+            <button class="btn btn-success mt-3" id="reset-view-btn">Shiko progresin e pergjithshem</button>
+
+                <button id="shtoStervitjeBtn" class="btn btn-primary mt-3 ms-2">Shto nje Stervitje</button>
+
+            <hr>
+
+            <div class="row text-center my-4">
+                <div class="col-md-4">
+                    <div id="steps-box" class="p-3 border bg-success text-white rounded">Hapat: -</div>
+                </div>
+                <div class="col-md-4">
+                    <div id="calories-box" class="p-3 border bg-info text-white rounded">Kalorite: -</div>
+                </div>
+                <div class="col-md-4">
+                    <div id="distance-box" class="p-3 border bg-warning text-dark rounded">Distanca: -</div>
+                </div>
+            </div>
+
+            <canvas id="stervitjaChart" width="400" height="200"></canvas>
+
+            <div class="text-center mt-4">
+                <button id="logoutBtn" class="btn btn-danger">Logout</button>
+
+            </div>
+
+            <hr>
+            <div id="stervitjet-list">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+<script src="paneli.js"></script>
+
+
+
+
+</body>
+</html>

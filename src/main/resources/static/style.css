@@ -1,0 +1,110 @@
+
+body {
+
+    background: #f0f2f5;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-image: url('images/projektifoto1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position:relative;
+
+
+
+
+}
+
+.login-container {
+max-width:400px;
+margin: 100px auto;
+padding: 30px;
+background-color: white;
+border-radius: 12px;
+box-shadow: 0 0 10px rgba(0,0,0,0.1);
+color: white;
+
+}
+
+
+body::before {
+content: "";
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: rgba(0,0,0,0.7);
+z-index: -1;
+
+
+}
+
+.register-link {
+
+text-align: center;
+margin-top: 15px;
+}
+
+#error-message{
+color: red;
+font-weight: bold;
+margin-top: 10px;
+}
+.container h1 {
+color: white;
+}
+
+.container label {
+color: white;
+
+}
+
+p {
+color: white;
+}
+
+
+#register-message {
+
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+
+
+
+}
+
+#register-message.success {
+
+color: green;
+
+}
+
+#register-message.error {
+
+color:red;
+}
+
+.navbar .form-control {
+
+background-color: #f0f8ff;
+border: 1px solid #007bff;
+color: #007bff;
+
+}
+
+.navbar .btn.outline-success {
+    border-color: #007bff;
+    color: #007bff;
+    background-color: #f0f8ff;
+
+}
+
+.navbar .btn-outline-success:hover {
+    background-color: #007bff;
+    color: white;
+
+}

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Shto Stervitje</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        label {
+        color: black !important;
+        }
+        h2 {
+        color: white !important;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">"
+</head>
+
+<body class="bg-light">
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Stervitje Tracker</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="paneli.html">Home <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">About Us</a>
+                    <a class="dropdown-item" href="#">Careers</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Contact Us</a>
+                </div>
+            </li>
+
+        </ul>
+        <form class="d-flex form-inline ms-auto my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success ms-auto my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">Shto te dhenat per nje stervitje</h2>
+    <form id="stervitjaForm" class="card p-4 shadow-sm bg-white rounded">
+        <div class="mb-3">
+            <label for="data" class="form-label">Data</label>
+            <input type="date" class="form-control" id="data" required>
+        </div>
+        <div class="mb-3">
+            <label for="hapat" class="form-label">Hapat</label>
+            <input type="number" class="form-control" id="hapat" required min="0">
+        </div>
+        <div class="mb-3">
+            <label for="kalorite" class="form-label">Kalorite e humbura</label>
+            <input type="number" class="form-control" id="kalorite" required min="0">
+        </div>
+        <div class="mb-3">
+            <label for="distanca" class="form-label">Distanca (ne km)</label>
+            <input type="number" class="form-control" id="distanca" required min="0">
+        </div>
+        <div class="mb-3">
+            <label for="pulsi_max" class="form-label">Pulsi maksimal gjate stervitjes:</label>
+            <input type="number" class="form-control" id="pulsi_max" required min="0">
+        </div>
+        <div class="mb-3">
+            <label for="pulsi_para_stervitjes" class="form-label">Pulsi para stervitjes:</label>
+            <input type="number" class="form-control" id="pulsi_para_stervitjes" required min="0">
+        </div>
+        <button type="submit" class="btn btn-success w-100">Shto te dhenat</button>
+    </form>
+    <div id="status" class="mt-3"></div>
+
+
+
+
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get("id");
+
+        if(!id) {
+            document.getElementById("status").textContent = "Gabim: ID mungon.";
+            return;
+        }
+
+        try {
+        const response = await fetch(`http://localhost:8080/api/stervitja/${id}`);
+        const stervitja = await response.json();
+
+        document.getElementById("data").value = stervitja.data.split("T")[0];
+        document.getElementById("hapat").value = stervitja.hapat;
+        document.getElementById("kalorite").value = stervitja.kalorite_e_humbura;
+        document.getElementById("distanca").value = stervitja.distanca;
+        document.getElementById("pulsi_max").value = stervitja.pulsi_maksimal_gjate_stervitjes;
+        document.getElementById("pulsi_para_stervitjes").value = stervitja.pulsi_para_stervitjes;
+
+        } catch(err) {
+        console.error("Gabim ne marrjen e te dhenave:", err);
+        document.getElementById("status").textContent = "Nuk u gjeten te dhenat.";
+    }
+
+    document.getElementById("stervitjaForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const updatedData = {
+        data: document.getElementById("data").value,
+        hapat: parseInt(document.getElementById("hapat").value),
+        kalorite_e_humbura: parseInt(document.getElementById("kalorite").value),
+        distanca: parseFloat(document.getElementById("distanca").value),
+        pulsi_maksimal_gjate_stervitjes: parseInt(document.getElementById("pulsi_max").value),
+        pulsi_para_stervitjes: parseInt(document.getElementById("pulsi_para_stervitjes").value)
+    };
+
+    try {
+        const response = await fetch(`http://localhost:8080/api/stervitja/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData)
+    });
+
+    if(response.ok) {
+        document.getElementById("status").textContent = "Te dhenat u perditesuan me sukses!";
+        setTimeout(() => {
+            window.location.href = "paneli.html";
+        }, 1500);
+        } else {
+            document.getElementById("status").textContent = "Gabim ne perditesim";
+            }
+        } catch (err) {
+            console.error("Gabim:", err);
+            document.getElementById("status").textContent = "Gabim ne server.";
+
+
+        }
+
+    });
+    });
+    </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+
+</body>
+</html>
