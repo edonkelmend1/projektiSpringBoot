@@ -218,6 +218,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const shtoBtn = document.getElementById("shtoStervitjeBtn");
                 if(shtoBtn){
                 shtoBtn.addEventListener("click", () => {
+                    console.log("Clicked");
                     window.location.href = "shto_stervitje.html";
                 });
                 }
