@@ -90,7 +90,7 @@ document.getElementById("filterByRangeBtn").addEventListener("click", () => {
     try {
 
         const response = await fetch(`https://ancient-oasis-62824-6c7097a4f2bf.herokuapp.com/api/stervitja/perdoruesi/${user.id}`);
-        const data = await response.json();
+        data = await response.json();
         const stervitjaList = document.getElementById("stervitjet-list")
 
         if(data.length > 0){
@@ -108,7 +108,7 @@ document.getElementById("filterByRangeBtn").addEventListener("click", () => {
                 const kalorite = data.map(entry => entry.kalorite_e_humbura);
                 const distanca = data.map(entry => entry.distanca);
          const ctx = document.getElementById("stervitjaChart").getContext("2d");
-            const chart = new Chart(ctx, {
+            chart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
