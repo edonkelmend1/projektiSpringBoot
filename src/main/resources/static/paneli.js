@@ -1,6 +1,68 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const user = JSON.parse(localStorage.getItem("user"));
 
+    const today = new Date().toISOString().split("T")[0];
+document.getElementById("startDate").max = today;
+document.getElementById("endDate").max = today;
+
+
+document.getElementById("filterByRangeBtn").addEventListener("click", () => {
+  const startDate = document.getElementById("startDate").value;
+  const endDate = document.getElementById("endDate").value;
+
+  if (!startDate || !endDate || startDate > endDate) {
+    alert("Ju lutem jepni një datë fillimi dhe përfundimi të vlefshme.");
+    return;
+  }
+
+  const filteredData = data.filter(entry => {
+    const entryDate = entry.data.split("T")[0];
+    return entryDate >= startDate && entryDate <= endDate;
+  });
+
+  
+  chart.data.labels = filteredData.map(entry => entry.data);
+  chart.data.datasets[0].data = filteredData.map(entry => entry.hapat);
+  chart.data.datasets[1].data = filteredData.map(entry => entry.kalorite_e_humbura);
+  chart.data.datasets[2].data = filteredData.map(entry => entry.distanca);
+  chart.update();
+
+  
+  if (filteredData.length > 0) {
+    const latest = filteredData[filteredData.length - 1];
+    document.getElementById("steps-box").textContent = `Hapat: ${latest.hapat}`;
+    document.getElementById("calories-box").textContent = `Kalorite e humbura: ${latest.kalorite_e_humbura}`;
+    document.getElementById("distance-box").textContent = `Distanca: ${latest.distanca} km`;
+  } else {
+    document.getElementById("steps-box").textContent = `Hapat: -`;
+    document.getElementById("calories-box").textContent = `Kalorite e humbura: -`;
+    document.getElementById("distance-box").textContent = `Distanca: -`;
+  }
+
+
+  const stervitjaList = document.getElementById("stervitjet-list");
+  stervitjaList.innerHTML = "";
+  filteredData.forEach(stervitje => {
+    const stervitjaDiv = document.createElement("div");
+    stervitjaDiv.classList.add("teDhenat-stervitja", "my-3");
+    stervitjaDiv.innerHTML = `
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <strong>Data:</strong> ${stervitje.data}<br>
+          <strong>Hapat:</strong> ${stervitje.hapat}<br>
+          <strong>Kalorite:</strong> ${stervitje.kalorite_e_humbura}<br>
+          <strong>Distanca:</strong> ${stervitje.distanca} km
+        </div>
+        <div>
+          <button class="btn btn-primary btn-sm edit-btn" data-id="${stervitje.id}">Edit</button>
+          <button class="btn btn-primary btn-sm delete-btn" data-id="${stervitje.id}">Delete</button>
+        </div>
+      </div>
+    `;
+    stervitjaList.appendChild(stervitjaDiv);
+  });
+});
+
 
     if(!user){
     window.location.href = "index.html";
