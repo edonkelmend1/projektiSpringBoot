@@ -227,7 +227,7 @@ document.getElementById("filterByRangeBtn").addEventListener("click", () => {
 
 
 
-            const zgjedh_daten = document.getElementById("zgjedh_daten");
+             /* const zgjedh_daten = document.getElementById("zgjedh_daten");
                 zgjedh_daten.max = new Date().toISOString().split("T")[0];
 
                 zgjedh_daten.addEventListener("change", () => {
@@ -258,7 +258,7 @@ document.getElementById("filterByRangeBtn").addEventListener("click", () => {
                 }
 
 
-                });
+                }); */
 
                 document.getElementById("reset-view-btn").addEventListener("click", () => {
                     const reset_btn = data[data.length - 1];
