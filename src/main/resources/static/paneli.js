@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const user = JSON.parse(localStorage.getItem("user"));
+    let data = [];
 
     const today = new Date().toISOString().split("T")[0];
 document.getElementById("startDate").max = today;
