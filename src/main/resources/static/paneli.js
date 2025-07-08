@@ -21,12 +21,13 @@ document.getElementById("filterByRangeBtn").addEventListener("click", () => {
     const entryDate = entry.data.split("T")[0];
     return entryDate >= startDate && entryDate <= endDate;
   });
+  filteredData.sort((a, b) => new Date(a.data) - new Date(b.data));
 
   
   chart.data.labels = filteredData.map(entry => entry.data);
   chart.data.datasets[0].data = filteredData.map(entry => entry.hapat);
-  chart.data.datasets[1].data = filteredData.map(entry => entry.kalorite_e_humbura);
-  chart.data.datasets[2].data = filteredData.map(entry => entry.distanca);
+  chart.data.datasets[1].data = filteredData.map(entry => entry.kalorite_e_humbura * 10);
+  chart.data.datasets[2].data = filteredData.map(entry => entry.distanca * 1000);
   chart.update();
 
   
@@ -91,6 +92,7 @@ document.getElementById("filterByRangeBtn").addEventListener("click", () => {
 
         const response = await fetch(`https://ancient-oasis-62824-6c7097a4f2bf.herokuapp.com/api/stervitja/perdoruesi/${user.id}`);
         data = await response.json();
+        data.sort((a, b) => new Date(a.data) - new Date(b.data));
         const stervitjaList = document.getElementById("stervitjet-list")
 
         if(data.length > 0){
@@ -105,8 +107,8 @@ document.getElementById("filterByRangeBtn").addEventListener("click", () => {
 
             const labels = data.map(entry => entry.data);
                 const hapat = data.map(entry => entry.hapat);
-                const kalorite = data.map(entry => entry.kalorite_e_humbura);
-                const distanca = data.map(entry => entry.distanca);
+                const kalorite = data.map(entry => entry.kalorite_e_humbura * 10);
+                const distanca = data.map(entry => entry.distanca * 1000);
          const ctx = document.getElementById("stervitjaChart").getContext("2d");
             chart = new Chart(ctx, {
                 type: 'line',
@@ -149,6 +151,22 @@ document.getElementById("filterByRangeBtn").addEventListener("click", () => {
                     title: {
                     display: true,
                     text: 'Progresi i stervitjeve'
+                    },
+                    tooltip: {
+                        callbacks: {
+                        label: function(context){
+                        const label = context.dataset.label;
+                        const value = context.raw;
+
+                        if(label.includes("Distanca")){
+                        return `Distanca: ${(value / 1000).toFixed(2)} km`;
+                        }else if (label.includes("Kalorite")){
+                        return `Kalorite e humbura: ${(value / 10).toFixed(0)}`;
+                        }
+                        return `Hapat: ${value}`;
+
+                        }
+                        }
                     }
                 },
                 scales: {
@@ -269,8 +287,8 @@ document.getElementById("filterByRangeBtn").addEventListener("click", () => {
 
                      chart.data.labels = data.map(entry => entry.data);
                      chart.data.datasets[0].data = data.map(entry => entry.hapat);
-                     chart.data.datasets[1].data = data.map(entry => entry.kalorite_e_humbura);
-                     chart.data.datasets[2].data = data.map(entry => entry.distanca);
+                     chart.data.datasets[1].data = data.map(entry => entry.kalorite_e_humbura * 10);
+                     chart.data.datasets[2].data = data.map(entry => entry.distanca * 1000);
                      chart.update();
 
                      zgjedh_daten.value = "";
@@ -296,9 +314,9 @@ document.getElementById("filterByRangeBtn").addEventListener("click", () => {
 
 
         }else{
-         document.getElementById("steps-box").textContent = `Steps: -`;
-                document.getElementById("calories-box").textContent = `Calories Burned: -`;
-                document.getElementById("distance-box").textContent = ` - km`;
+         document.getElementById("steps-box").textContent = `Hapat: -`;
+                document.getElementById("calories-box").textContent = `Kalorite: -`;
+                document.getElementById("distance-box").textContent = `Distanca - km`;
         }
 
         }catch (err) {
