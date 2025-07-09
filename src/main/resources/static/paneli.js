@@ -63,6 +63,28 @@ document.getElementById("filterByRangeBtn").addEventListener("click", () => {
       </div>
     `;
     stervitjaList.appendChild(stervitjaDiv);
+
+     stervitjaDiv.querySelector(".edit-btn").addEventListener("click", (event) => {
+        const stervitjaId = event.target.dataset.id;
+        window.location.href = `edit_stervitje.html?id=${stervitjaId}`;
+      });
+
+      stervitjaDiv.querySelector(".delete-btn").addEventListener("click", async (event) => {
+        const stervitjaId = event.target.dataset.id;
+        try {
+          const response = await fetch(`https://ancient-oasis-62824-6c7097a4f2bf.herokuapp.com/api/stervitja/${stervitjaId}`, {
+            method: 'DELETE',
+          });
+
+          if (response.ok) {
+            event.target.closest(".teDhenat-stervitja").remove();
+          } else {
+            alert("Gabim gjatë fshirjes.");
+          }
+        } catch (err) {
+          console.error("Gabim:", err);
+        }
+      });
   });
 });
 
